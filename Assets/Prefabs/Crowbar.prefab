@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 650016555774826994}
   - component: {fileID: 2962128205775276619}
-  - component: {fileID: 2293659184110516129}
   - component: {fileID: 6730983178335792317}
+  - component: {fileID: 3115426314127637711}
   m_Layer: 0
   m_Name: Crowbar
-  m_TagString: Untagged
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8622673390088446176}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.1575, y: 0.08479835, z: 0}
   m_LocalScale: {x: 1.2474757, y: 0.2038276, z: 1}
   m_ConstrainProportionsScale: 0
@@ -89,19 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2293659184110516129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8622673390088446176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f79aaed2ae51974cb010da409ee3c5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crowbarPrefab: {fileID: 0}
 --- !u!61 &6730983178335792317
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -148,3 +135,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3115426314127637711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622673390088446176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c005658129dbdb944aa2fb7e4a4403b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 1
+  bypassStun: 0
+  stunDuration: 1
