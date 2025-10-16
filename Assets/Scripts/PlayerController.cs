@@ -34,6 +34,12 @@ public class PlayerController : MonoBehaviour
 
     public SpriteRenderer spriteRenderer;
 
+    public bool hasLBEye;
+    public bool CanFireLaser = true;
+    public GameObject laserPrefab;
+
+    public float laserCooldown;
+
 
     
 
@@ -82,6 +88,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             BasicAttack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            LaserFire();
         }
 
         if (Iframes)
@@ -154,8 +165,6 @@ public class PlayerController : MonoBehaviour
         CanAttack = true;
 
     }
-    
-
 
         public void HitByAttack(GameObject attack)
     {
@@ -170,12 +179,35 @@ public class PlayerController : MonoBehaviour
         }
         
     }
-        public IEnumerator IFramesTimer()
+    public IEnumerator IFramesTimer()
     {
         Iframes = true;
         yield return new WaitForSeconds(IFramesDuration);
         Iframes = false;
         IFramesCouroutine = null;
+    }
+    
+        public void LaserFire()
+    {
+        if (CanFireLaser)
+        {
+            CanFireLaser = false;
+            StartCoroutine(BeamShotTimer());
+        }
+    }    
+
+    // Creates a new instance of LaserShot
+    public IEnumerator BeamShotTimer()
+    {
+        GameObject laserHitbox = Instantiate(laserPrefab, gameObject.transform.position, Quaternion.identity);
+        LaserShot newShot = laserHitbox.GetComponent<LaserShot>();
+        
+        newShot.SetDirection(playerFacingDir);
+
+        yield return new WaitForSeconds(laserCooldown);
+        // Destroys if it hasn't hit something yet
+        Destroy(laserHitbox);
+        CanFireLaser = true;
     }
 
 

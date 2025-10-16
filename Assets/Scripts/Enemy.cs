@@ -122,13 +122,19 @@ public class Enemy : MonoBehaviour
     
     public void CleanUpAttack()
     {
+        if(transform.Find("EnemyCrowbar(Clone)") != null)
+        {
+            Transform leftoverProj = transform.Find("EnemyCrowbar(Clone)"); // Get first child, which is the sight hitbox
+            GameObject leftoverObj = leftoverProj.gameObject;
+            Destroy(leftoverObj);
+        }
         CanAttack = true;
         IsAttacking = false;
     }
 
 
     //If the player is hit by the attack, stun them and deal damage if already stunned
-    //NOTE: If an attack has "bypassStun", it will deal damage regardless if the enemy is stunned or not
+    //NOTE: If an attack has "bypassStun", it will deal Sdamage regardless if the enemy is stunned or not
     public void HitByAttack(GameObject attack)
     {
         PlayerAttack PA = attack.GetComponent<PlayerAttack>();
