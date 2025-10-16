@@ -1,3 +1,8 @@
+
+//NOTE: This script only exists to hold new code I created which is different from code pushed to the repository.
+
+/*
+
 using UnityEngine;
 using System.Collections;
 
@@ -180,3 +185,6 @@ public class PlayerController : MonoBehaviour
 
 
 }
+
+
+*/

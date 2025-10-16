@@ -21,7 +21,9 @@ public class Enemy : MonoBehaviour
 
     public GameObject player;
 
-    private Coroutine stunCouroutine;
+    private Coroutine stunCoroutine;
+
+    private Coroutine attackCoroutine;
 
     [SerializeField] public bool playerInSight = false;
 
@@ -30,6 +32,12 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D enemyRB;
 
     public SpriteRenderer spriteRenderer;
+
+    public GameObject attackPrefab;
+
+    public int dir;
+
+    public bool CanAttack = true;
 
     void Start()
     {
@@ -67,15 +75,31 @@ public class Enemy : MonoBehaviour
             if (player.transform.position.x > transform.position.x)
             {
                 enemyRB.linearVelocityX = speed;
+                dir = 1;
             }
             else
             {
                 enemyRB.linearVelocityX = -1 * speed;
+                dir = -1;
             }
         }
         else
         {
             enemyRB.linearVelocityX = 0;
+        }
+
+        if (playerInRange && !IsAttacking && !IsStunned)
+        {
+            if (player.transform.position.x > transform.position.x)
+            {
+                dir = 1;
+                EnemyAttack();
+            }
+            else
+            {
+                dir = -1;
+                EnemyAttack();
+            }
         }
 
 
@@ -84,11 +108,22 @@ public class Enemy : MonoBehaviour
         if (IsStunned)
         {
             spriteRenderer.color = Color.yellow;
+            if (attackCoroutine != null)
+            {
+                StopCoroutine(attackCoroutine);
+                CleanUpAttack();
+            }
         }
         else
         {
             spriteRenderer.color = Color.white;
         }
+    }
+    
+    public void CleanUpAttack()
+    {
+        CanAttack = true;
+        IsAttacking = false;
     }
 
 
@@ -101,11 +136,11 @@ public class Enemy : MonoBehaviour
         {
             HP -= PA.dmg;
         }
-        if (stunCouroutine != null)
+        if (stunCoroutine != null)
         {
-            StopCoroutine(stunCouroutine);
+            StopCoroutine(stunCoroutine);
         }
-        stunCouroutine = StartCoroutine(StunTimer(PA.stunDuration));
+        stunCoroutine = StartCoroutine(StunTimer(PA.stunDuration));
     }
 
     //Check collisions with player attack hitboxes
@@ -124,5 +159,36 @@ public class Enemy : MonoBehaviour
         IsStunned = true;
         yield return new WaitForSeconds(stunTime);
         IsStunned = false;
+    }
+
+        public void EnemyAttack()
+    {
+        if (CanAttack)
+        {
+            CanAttack = false;
+            IsAttacking = true;
+            attackCoroutine = StartCoroutine(BasicAttackTimer());
+        }
+
+    }
+
+    public IEnumerator BasicAttackTimer()
+    {
+
+        yield return new WaitForSeconds(0.5f); //Startup value, can be changed
+        Debug.Log("Enemy Attack Launched");
+        GameObject AttackHitbox = Instantiate(attackPrefab, gameObject.transform.position, Quaternion.identity); // Spawns the enemy attack using the prefab, at the position of the player, with no rotation.
+        AttackHitbox.transform.SetParent(gameObject.gameObject.transform); //Set the attack to have the player as parent.
+        if(dir == 1){ //Setting the position of the hitbox relative to which direction the player is facing
+            AttackHitbox.transform.localPosition = new Vector3(1,0,0);
+        } else {
+            AttackHitbox.transform.localPosition = new Vector3(-1,0,0);
+        }
+        
+        yield return new WaitForSeconds(0.25f); //The hitbox will be deleted after this time, can be changed
+        Destroy(AttackHitbox);
+        CanAttack = true;
+        IsAttacking = false;
+        
     }
 }

@@ -54,6 +54,8 @@
     <Compile Include="Assets\Scripts\EnemyAttackRange.cs" />
     <Compile Include="Assets\Scripts\CrowbarAttack.cs" />
     <Compile Include="Assets\Scripts\PlayerAttack.cs" />
+    <Compile Include="Assets\Scripts\EnemyAttack.cs" />
+    <Compile Include="Assets\Scripts\PCTemp.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

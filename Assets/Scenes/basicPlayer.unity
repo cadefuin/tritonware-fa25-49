@@ -882,6 +882,9 @@ MonoBehaviour:
   playerFacingDir: 0
   CanAttack: 1
   crowbarPrefab: {fileID: 8622673390088446176, guid: ae2c49bfe34dc004bb1117adb0378fbd, type: 3}
+  Iframes: 0
+  IFramesDuration: 1
+  spriteRenderer: {fileID: 766346784}
 --- !u!114 &766346787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1173,6 +1176,9 @@ MonoBehaviour:
   playerInRange: 0
   enemyRB: {fileID: 0}
   spriteRenderer: {fileID: 1717015887}
+  attackPrefab: {fileID: 6029996178046756113, guid: 720e3e5e6be290e439b777689297e478, type: 3}
+  dir: 0
+  CanAttack: 1
 --- !u!1 &1915935081
 GameObject:
   m_ObjectHideFlags: 0
