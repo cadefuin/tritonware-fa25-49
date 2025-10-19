@@ -35,6 +35,8 @@ public class Enemy : MonoBehaviour
 
     public GameObject attackPrefab;
 
+    public Animator enemyAnim;
+
     public int dir;
 
     public bool CanAttack = true;
@@ -76,16 +78,21 @@ public class Enemy : MonoBehaviour
             {
                 enemyRB.linearVelocityX = speed;
                 dir = 1;
+                enemyAnim.SetBool("IsWalking", true);
+                spriteRenderer.flipX = false;
             }
             else
             {
                 enemyRB.linearVelocityX = -1 * speed;
                 dir = -1;
+                spriteRenderer.flipX = true;
+                enemyAnim.SetBool("IsWalking",true);
             }
         }
         else
         {
             enemyRB.linearVelocityX = 0;
+            enemyAnim.SetBool("IsWalking",false);
         }
 
         if (playerInRange && !IsAttacking && !IsStunned)
