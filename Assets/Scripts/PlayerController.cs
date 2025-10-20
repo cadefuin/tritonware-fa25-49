@@ -65,6 +65,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        if(!GameManager.IsPaused){
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -101,6 +103,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             LaserFire();
+        }
+
         }
 
         //Debug.DrawRay(transform.position, Vector2.down *(spriteRenderer.bounds.extents.y + 0.1f), Color.red);
