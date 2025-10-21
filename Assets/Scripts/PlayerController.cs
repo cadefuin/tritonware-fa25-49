@@ -94,6 +94,8 @@ public class PlayerController : MonoBehaviour
             jumpNum -= 1;
             playerAnimator.SetBool("IsJumping", true);
         }
+        
+
 
         if (Input.GetKeyDown(KeyCode.X))
         {

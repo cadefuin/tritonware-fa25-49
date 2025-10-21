@@ -52,6 +52,8 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemySightRange.cs" />
     <Compile Include="Assets\Scripts\LaserShot.cs" />
+    <Compile Include="Assets\Scripts\Dialog.cs" />
+    <Compile Include="Assets\Scripts\NPC.cs" />
     <Compile Include="Assets\Scripts\BackgroundMove.cs" />
     <Compile Include="Assets\Scripts\EnemyAttackRange.cs" />
     <Compile Include="Assets\Scripts\CrowbarAttack.cs" />
