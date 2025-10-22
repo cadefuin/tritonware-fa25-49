@@ -114,7 +114,7 @@ public class Enemy : MonoBehaviour
         //NOTE: This is for debugging, it will be changed to an animation when art is done
         if (IsStunned)
         {
-            spriteRenderer.color = Color.yellow;
+            enemyAnim.SetBool("IsStunned",true);
             if (attackCoroutine != null)
             {
                 StopCoroutine(attackCoroutine);
@@ -123,7 +123,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            spriteRenderer.color = Color.white;
+            enemyAnim.SetBool("IsStunned",false);
         }
     }
     
@@ -148,6 +148,7 @@ public class Enemy : MonoBehaviour
         if (PA.bypassStun || IsStunned)
         {
             HP -= PA.dmg;
+            StartCoroutine(RedFlash());
         }
         if (stunCoroutine != null)
         {
@@ -165,6 +166,8 @@ public class Enemy : MonoBehaviour
             HitByAttack(collision.collider.gameObject);
         }
     }
+
+
 
     //Timer that changes the player's stun variable to true for a duration.
     public IEnumerator StunTimer(float stunTime)
@@ -192,16 +195,29 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy Attack Launched");
         GameObject AttackHitbox = Instantiate(attackPrefab, gameObject.transform.position, Quaternion.identity); // Spawns the enemy attack using the prefab, at the position of the player, with no rotation.
         AttackHitbox.transform.SetParent(gameObject.gameObject.transform); //Set the attack to have the player as parent.
-        if(dir == 1){ //Setting the position of the hitbox relative to which direction the player is facing
-            AttackHitbox.transform.localPosition = new Vector3(1,0,0);
-        } else {
-            AttackHitbox.transform.localPosition = new Vector3(-1,0,0);
+        if (dir == 1)
+        { //Setting the position of the hitbox relative to which direction the player is facing
+            AttackHitbox.transform.localPosition = new Vector3(1, 0, 0);
         }
-        
+        else
+        {
+            AttackHitbox.transform.localPosition = new Vector3(-1, 0, 0);
+        }
+
         yield return new WaitForSeconds(0.25f); //The hitbox will be deleted after this time, can be changed
         Destroy(AttackHitbox);
         CanAttack = true;
         IsAttacking = false;
-        
+
+    }
+    
+    public IEnumerator RedFlash()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            spriteRenderer.color = new Color(1, 0.5f + (i * 0.1f), 0.5f + (i * 0.1f));
+            yield return new WaitForSeconds(0.05f);
+        }
+        spriteRenderer.color = Color.white;
     }
 }

@@ -37,7 +37,14 @@ public class LaserShot : MonoBehaviour
     {
         if (collision.collider.gameObject.tag == "Ground")
         {
-            Destroy(gameObject);
+            if (collision.collider.gameObject.TryGetComponent<PlatformEffector2D>(out PlatformEffector2D rb))
+            {
+                
+            } else
+            {
+                Destroy(gameObject);
+            }
+
         }
         else if (collision.collider.gameObject.tag == "Enemy")
         {

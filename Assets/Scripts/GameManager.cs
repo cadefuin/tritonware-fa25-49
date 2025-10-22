@@ -6,7 +6,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] public static bool IsPaused;
 
-    [SerializeField] public static bool DialogOn;
+    [SerializeField] public static bool DialogOn = false;
+
+    [SerializeField] public static Vector2 respawnPos = new Vector2();
 
     public GameObject pauseUI;
     void Start()
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour
                 Pause();
             }
         }
+
     }
 
     public void Pause()
@@ -42,5 +45,15 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         pauseUI.SetActive(false);
         IsPaused = false;
+    }
+
+    public static void setRespawnPos(Vector2 pos)
+    {
+        respawnPos = pos;
+    }
+
+    public static Vector2 getRespawnPos()
+    {
+        return respawnPos;
     }
 }

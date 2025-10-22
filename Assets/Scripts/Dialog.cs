@@ -18,6 +18,8 @@ public class Dialog : MonoBehaviour
     private int index;
 
     public static int dialogNum = 0;
+
+    public bool dialogPlaying = false;
     void Start()
     {
         AllDialog.Add(lines);
@@ -45,10 +47,17 @@ public class Dialog : MonoBehaviour
 
     public void StartDialog(int num)
     {
+        if (!dialogPlaying)
+        {
+            dialogPlaying = true;
+            GameManager.DialogOn = true;
+            textComponent.text = string.Empty;
         index = 0;
         gameObject.SetActive(true);
         dialogNum = num;
         StartCoroutine(TypeLine());
+        }
+        
     }
 
     IEnumerator TypeLine()
@@ -69,6 +78,8 @@ public class Dialog : MonoBehaviour
             StartCoroutine(TypeLine());
         } else
         {
+            dialogPlaying = false;
+            GameManager.DialogOn = false;
             gameObject.SetActive(false);
         }
     }
