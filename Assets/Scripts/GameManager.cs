@@ -10,10 +10,20 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] public static Vector2 respawnPos = new Vector2();
 
+    [SerializeField] private static int[] NPCsTalkedTo = new int[99];
+
+    [SerializeField] public static int enemiesKilled = 0;
+
+    [SerializeField] public static int points = 0;
+
     public GameObject pauseUI;
     void Start()
     {
+        Application.targetFrameRate = 60;
+        
         pauseUI.SetActive(false);
+        NPCsTalkedTo[0] = 0;
+        NPCsTalkedTo[4] = 0;
     }
 
     // Update is called once per frame

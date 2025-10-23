@@ -77,9 +77,7 @@ public class PlayerController : MonoBehaviour
         }
         playerFacingDir = 1;
 
-        collectedAbilities[0] = 1;
-        collectedAbilities[1] = 1;
-        collectedAbilities[2] = 1;
+
     }
 
     // Update is called once per frame

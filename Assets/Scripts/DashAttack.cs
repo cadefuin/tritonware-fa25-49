@@ -3,6 +3,9 @@ using UnityEngine;
 public class DashAttack : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public bool playerSide = true;
+    
     void Start()
     {
         
@@ -16,11 +19,26 @@ public class DashAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (playerSide)
         {
-            Enemy enemyScript = collision.gameObject.GetComponent<Enemy>();
+            if (collision.CompareTag("Enemy"))
+            {
+                Enemy enemyScript = collision.gameObject.GetComponent<Enemy>();
 
-            enemyScript.HitByAttack(gameObject);
+                enemyScript.HitByAttack(gameObject);
+            }
+        } else
+        {
+            if (collision.CompareTag("Player"))
+            {
+                PlayerController pScript = collision.gameObject.GetComponent<PlayerController>();
+
+                pScript.HitByAttack(gameObject);
+            }
         }
+
+
+
+        
     }
 }

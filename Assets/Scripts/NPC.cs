@@ -9,6 +9,10 @@ public class NPC : MonoBehaviour
     public Dialog dialog;
 
     public int dialogNum;
+
+    private int currentNum;
+
+    private int mod = 0;
     void Start()
     {
         
@@ -17,9 +21,25 @@ public class NPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        
+        if(GameManager.enemiesKilled >= 20)
+        {
+            currentNum = dialogNum+mod+2;
+        } else
+        {
+            currentNum = dialogNum+mod;
+        }
+        
         if (Input.GetKeyDown(KeyCode.A) && playerInRange)
         {
-            dialog.StartDialog(dialogNum);
+
+            dialog.StartDialog(currentNum);
+
+            
+
+            mod = 1;
+            
         }
     }
     
